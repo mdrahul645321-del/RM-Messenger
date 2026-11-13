@@ -62,4 +62,5 @@
     <string name="language_section">Language</string>
     <string name="account_section">Account &amp; Roadmap</string>
     <string name="sign_out_preview">Return to Login</string>
+    <string name="default_web_client_id">placeholder</string>
 </resources>

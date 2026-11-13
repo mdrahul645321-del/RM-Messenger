@@ -1,0 +1,447 @@
+{
+  "entities": {
+    "UserAccountEntity": {
+      "title": "UserAccount",
+      "description": "Private user account document stored strictly under the owner's UID.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID matching the document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name (2-60 chars)."
+        },
+        "username": {
+          "type": "string",
+          "description": "Lowercase unique handle without @ (3-24 chars)."
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address (optional)."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Verified or linked E.164 phone number (optional)."
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Profile photo URL (optional)."
+        },
+        "about": {
+          "type": "string",
+          "description": "User bio/about text (max 140 chars)."
+        },
+        "onlineStatus": {
+          "type": "string",
+          "enum": ["online", "offline"]
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin", "super_admin"]
+        },
+        "accountStatus": {
+          "type": "string",
+          "enum": ["active", "suspended"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["uid", "displayName", "username", "about", "onlineStatus", "role", "accountStatus", "createdAt", "updatedAt"]
+    },
+    "UsernameIndexEntity": {
+      "title": "UsernameIndex",
+      "description": "Public username discovery record containing zero PII (no email or phone).",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user owning this handle."
+        },
+        "username": {
+          "type": "string",
+          "description": "Lowercase handle matching the document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Public display name."
+        },
+        "about": {
+          "type": "string",
+          "description": "Public short bio."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "username", "displayName", "about", "createdAt", "updatedAt"]
+    },
+    "ContactRecordEntity": {
+      "title": "ContactRecord",
+      "description": "User-owned contact entry stored under /users/{userId}/contacts/{contactUid}.",
+      "type": "object",
+      "properties": {
+        "contactUid": {
+          "type": "string",
+          "description": "UID of the saved contact."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the saved contact."
+        },
+        "username": {
+          "type": "string",
+          "description": "Username handle of the saved contact."
+        },
+        "about": {
+          "type": "string",
+          "description": "About text of the saved contact."
+        },
+        "isBlocked": {
+          "type": "boolean",
+          "description": "Whether the user blocked this contact."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["contactUid", "displayName", "username", "about", "isBlocked", "createdAt", "updatedAt"]
+    },
+    "ConversationEntity": {
+      "title": "Conversation",
+      "description": "Private 1:1 or group conversation room scoped strictly to memberUids.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["direct", "group"]
+        },
+        "memberUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "adminUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "title": {
+          "type": "string",
+          "description": "Group display name (or empty for direct chats)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Group description (max 200 chars)."
+        },
+        "participantNames": {
+          "type": "object"
+        },
+        "participantUsernames": {
+          "type": "object"
+        },
+        "lastMessageText": {
+          "type": "string"
+        },
+        "lastMessageSenderId": {
+          "type": "string"
+        },
+        "lastMessageSenderName": {
+          "type": "string"
+        },
+        "lastMessageAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "unreadCounts": {
+          "type": "object"
+        },
+        "pinnedBy": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "mutedBy": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "typingUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "type",
+        "memberUids",
+        "adminUids",
+        "title",
+        "description",
+        "participantNames",
+        "participantUsernames",
+        "lastMessageText",
+        "lastMessageSenderId",
+        "lastMessageSenderName",
+        "unreadCounts",
+        "pinnedBy",
+        "mutedBy",
+        "typingUids",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "MessageEntity": {
+      "title": "Message",
+      "description": "Real-time message document inside /conversations/{conversationId}/messages/{messageId}.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "text": { "type": "string" },
+        "messageType": {
+          "type": "string",
+          "enum": ["text", "voice", "image", "video", "audio", "document"]
+        },
+        "fileName": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "fileSizeBytes": { "type": "integer" },
+        "durationSeconds": { "type": "integer" },
+        "waveform": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "mediaData": { "type": "string" },
+        "thumbnailData": { "type": "string" },
+        "replyToMessageId": { "type": "string" },
+        "replyToSenderName": { "type": "string" },
+        "replyToPreview": { "type": "string" },
+        "forwardedFrom": { "type": "boolean" },
+        "reactions": { "type": "object" },
+        "readByUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deliveredToUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deletedForUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "isDeletedForEveryone": { "type": "boolean" },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "senderId",
+        "senderName",
+        "text",
+        "messageType",
+        "forwardedFrom",
+        "reactions",
+        "readByUids",
+        "deliveredToUids",
+        "deletedForUids",
+        "isDeletedForEveryone",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CallSessionEntity": {
+      "title": "CallSession",
+      "description": "WebRTC audio/video signaling document and call history log under /calls/{callId}.",
+      "type": "object",
+      "properties": {
+        "callerId": { "type": "string" },
+        "callerName": { "type": "string" },
+        "callerUsername": { "type": "string" },
+        "calleeId": { "type": "string" },
+        "calleeName": { "type": "string" },
+        "calleeUsername": { "type": "string" },
+        "participantUids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "callType": {
+          "type": "string",
+          "enum": ["audio", "video"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ringing", "accepted", "rejected", "ended", "missed"]
+        },
+        "offerSdp": { "type": "string" },
+        "answerSdp": { "type": "string" },
+        "durationSeconds": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "endedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "callerId",
+        "callerName",
+        "callerUsername",
+        "calleeId",
+        "calleeName",
+        "calleeUsername",
+        "participantUids",
+        "callType",
+        "status",
+        "durationSeconds",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CallCandidateEntity": {
+      "title": "CallCandidate",
+      "description": "WebRTC ICE candidate under /calls/{callId}/candidates/{candidateId}.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "sdpMid": { "type": "string" },
+        "sdpMLineIndex": { "type": "integer" },
+        "sdp": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "sdpMid", "sdpMLineIndex", "sdp", "createdAt"]
+    },
+    "AnnouncementEntity": {
+      "title": "Announcement",
+      "description": "Global platform announcement published by Admin or Super Admin under /announcements/{announcementId}.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "priority": {
+          "type": "string",
+          "enum": ["info", "important", "maintenance"]
+        },
+        "isActive": { "type": "boolean" },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "body", "priority", "isActive", "authorUid", "authorName", "createdAt", "updatedAt"]
+    },
+    "ModerationReportEntity": {
+      "title": "ModerationReport",
+      "description": "User-submitted safety/abuse report under /moderation_reports/{reportId} triaged by Admins.",
+      "type": "object",
+      "properties": {
+        "reporterUid": { "type": "string" },
+        "reporterName": { "type": "string" },
+        "targetUid": { "type": "string" },
+        "targetName": { "type": "string" },
+        "targetType": {
+          "type": "string",
+          "enum": ["user", "chat", "group", "message"]
+        },
+        "targetId": { "type": "string" },
+        "reason": { "type": "string" },
+        "details": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["open", "resolved", "dismissed"]
+        },
+        "resolutionNote": { "type": "string" },
+        "reviewedByUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterUid", "reporterName", "targetUid", "targetName", "targetType", "targetId", "reason", "details", "status", "createdAt", "updatedAt"]
+    },
+    "PlatformConfigEntity": {
+      "title": "PlatformConfig",
+      "description": "Super-Admin-managed platform controls and feature toggles under /app_config/platform.",
+      "type": "object",
+      "properties": {
+        "maintenanceMode": { "type": "boolean" },
+        "maintenanceMessage": { "type": "string" },
+        "allowNewRegistrations": { "type": "boolean" },
+        "callingEnabled": { "type": "boolean" },
+        "voiceMessagesEnabled": { "type": "boolean" },
+        "mediaSharingEnabled": { "type": "boolean" },
+        "updatedByUid": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["maintenanceMode", "maintenanceMessage", "allowNewRegistrations", "callingEnabled", "voiceMessagesEnabled", "mediaSharingEnabled", "updatedByUid", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserAccountEntity" },
+      "description": "Owner-only private user account records containing PII."
+    },
+    "/users/{userId}/contacts/{contactUid}": {
+      "schema": { "$ref": "#/entities/ContactRecordEntity" },
+      "description": "Owner-scoped contacts list for a user."
+    },
+    "/usernames/{username}": {
+      "schema": { "$ref": "#/entities/UsernameIndexEntity" },
+      "description": "Exact-match username lookup directory without PII."
+    },
+    "/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/ConversationEntity" },
+      "description": "Direct and group chat rooms restricted to memberUids."
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/MessageEntity" },
+      "description": "Conversation messages restricted to parent conversation members."
+    },
+    "/calls/{callId}": {
+      "schema": { "$ref": "#/entities/CallSessionEntity" },
+      "description": "Audio & video WebRTC signaling and call history scoped strictly to participantUids."
+    },
+    "/calls/{callId}/candidates/{candidateId}": {
+      "schema": { "$ref": "#/entities/CallCandidateEntity" },
+      "description": "WebRTC ICE candidates restricted to participants of parent call."
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/AnnouncementEntity" },
+      "description": "Global platform announcements readable by signed-in users, writable strictly by admins/super admins."
+    },
+    "/moderation_reports/{reportId}": {
+      "schema": { "$ref": "#/entities/ModerationReportEntity" },
+      "description": "Safety reports readable by reporter or admins, resolvable strictly by admins/super admins."
+    },
+    "/app_config/{configId}": {
+      "schema": { "$ref": "#/entities/PlatformConfigEntity" },
+      "description": "Platform-wide configuration flags readable by signed-in users, writable strictly by super admin."
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">RM Messenger</string>
+    <string name="app_tagline">Connect. Chat. Call. Share.</string>
+    <string name="phase_one_badge">Phase 1 Foundation</string>
+
+    <!-- Navigation & Tabs -->
+    <string name="nav_chats">Chats</string>
+    <string name="nav_calls">Calls</string>
+    <string name="nav_contacts">Contacts</string>
+    <string name="nav_groups">Groups</string>
+    <string name="cd_app_logo">RM Messenger logo</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_close_search">Close search</string>
+    <string name="cd_profile">Open profile</string>
+    <string name="cd_settings">Open settings</string>
+    <string name="cd_back">Navigate back</string>
+    <string name="cd_new_chat">Start new chat</string>
+    <string name="cd_new_call">Start new call</string>
+    <string name="cd_add_contact">Add contact</string>
+    <string name="cd_create_group">Create group</string>
+
+    <!-- Auth -->
+    <string name="login_title">Welcome to RM Messenger</string>
+    <string name="login_subtitle">Fast, private messaging, voice notes, and crystal-clear calls.</string>
+    <string name="phone_number_label">Phone number</string>
+    <string name="country_code_label">Country</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="otp_label">6-digit verification code</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="create_account_cta">Create an account</string>
+    <string name="preview_workspace_cta">Explore Home UI (Phase 1 Preview)</string>
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">Set up your RM Messenger identity. Cloud sync activates in Phase 2.</string>
+    <string name="display_name_label">Display name</string>
+    <string name="username_label">Username</string>
+    <string name="email_optional_label">Email (optional)</string>
+    <string name="about_label">About / Bio</string>
+    <string name="already_have_account">Already have an account? Sign in</string>
+
+    <!-- Home & Empty States -->
+    <string name="search_placeholder">Search chats, contacts, or groups…</string>
+    <string name="empty_chats_title">No conversations yet</string>
+    <string name="empty_chats_body">Real-time private chats, voice notes, and media sharing will appear here once Phase 2 &amp; Phase 3 Firebase services are connected.</string>
+    <string name="empty_calls_title">No recent calls</string>
+    <string name="empty_calls_body">Audio and video call history will be synced here when WebRTC calling is connected in Phase 5.</string>
+    <string name="empty_contacts_title">No contacts synced yet</string>
+    <string name="empty_contacts_body">Find people by username or phone number (+965 / +880) once Firebase Authentication and Firestore are configured in Phase 2.</string>
+    <string name="empty_groups_title">No groups joined</string>
+    <string name="empty_groups_body">Create group spaces, manage member permissions, and share files after Phase 3 messaging is enabled.</string>
+
+    <!-- Profile & Settings -->
+    <string name="profile_title">My Profile</string>
+    <string name="settings_title">Settings</string>
+    <string name="appearance_section">Appearance</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="privacy_section">Privacy &amp; Visibility</string>
+    <string name="notifications_section">Notifications</string>
+    <string name="language_section">Language</string>
+    <string name="account_section">Account &amp; Roadmap</string>
+    <string name="sign_out_preview">Return to Login</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "RM Messenger",
+  "description": "Independent, secure Android messaging app with real-time chats, calls, groups, and Light/Dark themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
